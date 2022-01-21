@@ -1,10 +1,28 @@
 version: '3.1'
 services:
-  express:
-    build: .
+  video-streaming:
+    container_name: video-streaming
+    build:
+      context: ./video-streaming
+      dockerfile: Dockerfile
     environment:
-      - APP_PORT=8080
+      - APP_PORT=8081
+      - VIDEO_STORAGE_HOST=storage-streaming
+      - VIDEO_STORAGE_PORT=8082
     volumes:
-      - ./:/app/
+      - ./video-streaming:/app/
     ports:
-      - "8081:8080"
+      - "8081:8081"
+  storage-streaming:
+    container_name: storage-streaming
+    build:
+      context: ./storage-streaming
+      dockerfile: Dockerfile
+    environment:
+      - APP_PORT=8082
+      - STORAGE_ACCOUNT_NAME=${STORAGE_ACCOUNT_NAME}
+      - STORAGE_ACCESS_KEY=${STORAGE_ACCESS_KEY}
+    volumes:
+      - ./storage-streaming:/app/
+    ports:
+      - "8082:8082"
