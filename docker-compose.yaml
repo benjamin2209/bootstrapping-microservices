@@ -6,23 +6,21 @@ services:
       context: ./video-streaming
       dockerfile: Dockerfile
     environment:
-      - APP_PORT=8081
+      - APP_PORT=8080
       - VIDEO_STORAGE_HOST=storage-streaming
-      - VIDEO_STORAGE_PORT=8082
+      - VIDEO_STORAGE_PORT=8080
     volumes:
       - ./video-streaming:/app/
     ports:
-      - "8081:8081"
+      - "8080:8080"
   storage-streaming:
     container_name: storage-streaming
     build:
       context: ./storage-streaming
       dockerfile: Dockerfile
     environment:
-      - APP_PORT=8082
+      - APP_PORT=8080
       - STORAGE_ACCOUNT_NAME=${STORAGE_ACCOUNT_NAME}
       - STORAGE_ACCESS_KEY=${STORAGE_ACCESS_KEY}
     volumes:
       - ./storage-streaming:/app/
-    ports:
-      - "8082:8082"

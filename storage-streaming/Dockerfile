@@ -13,7 +13,7 @@ RUN apt update
 
 COPY ./src ./src
 
-EXPOSE 8081
+EXPOSE 8080
 
 #CMD [ "npm", "start" ]
 CMD [ "nodemon", "index.js" ]
