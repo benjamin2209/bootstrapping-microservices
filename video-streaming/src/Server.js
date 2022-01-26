@@ -8,10 +8,11 @@ dotenv.config();
 
 export default class Server {
     static APP_PORT = process.env.APP_PORT;
+    static DB_URL = process.env.DB_URL;
+    static DB_NAME = process.env.DB_NAME;
 
     static config(){
         const app = new Express()
-
         app.use(bodyParser.urlencoded({extended: false}));
         app.use(bodyParser.json());
         app.use(cors({origin: true}))
