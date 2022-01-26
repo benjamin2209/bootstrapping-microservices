@@ -1,6 +1,7 @@
 import RequestUtil from '../Utils/RequestUtil.js';
 import http from 'http'
 import Video from "../Model/Video.js";
+import RabbitMQ from "../RabbitMQ.js";
 
 export default class IndexController {
 
@@ -46,6 +47,7 @@ export default class IndexController {
                 forwardResponse.pipe(res);
             }
         );
+        await (new RabbitMQ()).sendViewedMessage(video.path)
         req.pipe(forwardRequest);
     }
 }

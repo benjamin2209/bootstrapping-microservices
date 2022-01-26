@@ -11,6 +11,7 @@ services:
       - VIDEO_STORAGE_PORT=8080
       - DB_URL=mongodb://db:27017
       - DB_NAME=flixtube
+      - RABBIT=amqp://guest:guest@rabbit:5672
     volumes:
       - ./video-streaming:/app/
     depends_on:
@@ -43,11 +44,28 @@ services:
     environment:
       - PORT=80
       - NODE_ENV=development
+      - RABBIT=amqp://guest:guest@rabbit:5672
+      - DBHOST=mongodb://db:27017
+      - DBNAME=history
     restart: "no"
+    depends_on:
+      - db
+      - rabbit
 
   db:
     image: mongo:4.2.8
     container_name: db
     ports:
       - "4000:27017"
+    restart: always
+
+  rabbit:
+    image: rabbitmq:3.8.1-management
+    container_name: rabbit
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    expose:
+      - "5672"
+      - "15672"
     restart: always
