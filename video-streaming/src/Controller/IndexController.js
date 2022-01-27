@@ -48,6 +48,7 @@ export default class IndexController {
             }
         );
         await (new RabbitMQ()).sendViewedMessage(video.path)
+
         req.pipe(forwardRequest);
     }
 }
