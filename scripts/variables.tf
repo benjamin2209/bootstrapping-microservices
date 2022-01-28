@@ -11,14 +11,10 @@ variable admin_username {
   default = "linux_admin"
 }
 
-#variable client_id {
-#
-#}
-#
-#variable client_secret {
-#
-#}
-#
-#variable subscription_id {
-#
-#}
+variable client_id {
+
+}
+
+variable client_secret {
+
+}
